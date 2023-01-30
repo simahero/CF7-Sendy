@@ -4,7 +4,7 @@
  * Plugin Name: CF7 - Sendy
  * Plugin URI:
  * Description: Contact Form 7 - Sendy integration
- * Version: 1.0.3
+ * Version: 1.0.4
  * Text Domain:
  * Author: Ront車 Zolt芍n
  * Author URI: simahero.github.io

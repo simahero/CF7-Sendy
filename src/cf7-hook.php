@@ -5,15 +5,13 @@ function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 
 	$options = get_option('dw_cf7_sendy_plugin_options');
 
-	write_log($options);
-
-	$url = 'https://newsletter.onlinemarketing.hu/subscribe';
-	$api_key = 'P8nBHoD4dHuxM92S8o58';
+	//$url = 'https://newsletter.onlinemarketing.hu/subscribe';
+	//$api_key = 'P8nBHoD4dHuxM92S8o58';
 
 	$sendy = $submission->get_posted_data('sendy');
 
 	$body = array(
-		'api_key' => $api_key
+		'api_key' => $options['api_key']
 	);
 
 	$data = (array)json_decode("[" . $sendy . "]");
@@ -39,7 +37,7 @@ function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 	}
 
 	$response = wp_remote_post(
-		$url,
+		$options['url'],
 		array(
 			'method' => 'POST',
 			'timeout' => 45,
