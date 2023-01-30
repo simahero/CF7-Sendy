@@ -3,12 +3,12 @@
 function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 {
 
-	$enabled = $contact_form->additional_setting('dw-sendy-enabled');
+	$enabled = $contact_form->pref('dw_sendy_enabled');
 
 	if (!$enabled) return;
 
-	$url = $contact_form->additional_setting('dw-sendy-url');
-	$api_key = $contact_form->additional_setting('dw-sendy-api_key');
+	$url = $contact_form->pref('dw_sendy_url');
+	$api_key = $contact_form->pref('dw_sendy_api_key');
 
 	$sendy = $submission->get_posted_data('sendy');
 
@@ -52,12 +52,9 @@ function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 		)
 	);
 
-	$logging = $contact_form->additional_setting('dw-sendy-logging-enabled');
+	$logging = $contact_form->pref('dw_sendy_logging_enabled');
 
-	if ($logging) {
-		dws_log($enabled);
-		dws_log($url);
-		dws_log($api_key);
+	if ($logging && !is_wp_error($response)) {
 		dws_log($response);
 	}
 }
