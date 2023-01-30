@@ -1,15 +1,11 @@
 <?php
 
-if (!function_exists('write_log')) {
+function dws_log($msg)
+{
+    $pluginlog = plugin_dir_path(__FILE__) . '/debug.log';
 
-    function write_log($log) {
-        if (true === WP_DEBUG) {
-            if (is_array($log) || is_object($log)) {
-                error_log(print_r($log, true));
-            } else {
-                error_log($log);
-            }
-        }
-    }
+    $now = new DateTime('now');
+    $date = "[" . $now->format('Y-m-d H:i:s') . "]";
 
+    error_log(print_r($date . $msg . "\n", true), 3, $pluginlog);
 }

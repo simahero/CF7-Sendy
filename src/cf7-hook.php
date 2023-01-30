@@ -3,15 +3,17 @@
 function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 {
 
-	$options = get_option('dw_cf7_sendy_plugin_options');
+	$enabled = $contact_form->additional_setting('dw-sendy-enabled');
 
-	//$url = 'https://newsletter.onlinemarketing.hu/subscribe';
-	//$api_key = 'P8nBHoD4dHuxM92S8o58';
+	if (!$enabled) return;
+
+	$url = $contact_form->additional_setting('dw-sendy-url');
+	$api_key = $contact_form->additional_setting('dw-sendy-api_key');
 
 	$sendy = $submission->get_posted_data('sendy');
 
 	$body = array(
-		'api_key' => $options['api_key']
+		'api_key' => $api_key
 	);
 
 	$data = (array)json_decode("[" . $sendy . "]");
@@ -37,7 +39,7 @@ function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 	}
 
 	$response = wp_remote_post(
-		$options['url'],
+		$url,
 		array(
 			'method' => 'POST',
 			'timeout' => 45,
@@ -49,6 +51,15 @@ function action_wpcf7_before_send_mail($contact_form, &$abort, $submission)
 			'cookies' => array()
 		)
 	);
+
+	$logging = $contact_form->additional_setting('dw-sendy-logging-enabled');
+
+	if ($logging) {
+		dws_log($enabled);
+		dws_log($url);
+		dws_log($api_key);
+		dws_log($response);
+	}
 }
 
 add_action('wpcf7_before_send_mail', 'action_wpcf7_before_send_mail', 10, 3);
