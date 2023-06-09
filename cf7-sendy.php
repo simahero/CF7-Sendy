@@ -18,7 +18,25 @@
   00100000 00111100 00110011 00000000
 */
 
+/**
+    [hidden sendy 
+        default:'
+            {"name":"name","selector":"your-name","target":"form"},
+            {"name":"email","selector":"your-email","target":"form"},
+            {"selector":"checkbox-newslettertype","target":"form"},
+            {"name":"list","value":"Oe2BElGFg763EP892HgMKQi763XA","target":"static"},
+            {"name":"country","value":"HU","target":"static"},
+            {"name":"gdpr","value":"true","target":"static"},
+            {"name":"silent","value":"true","target":"static"}'
+    ]
+ */
 
+/*
+	dw_sendy_enabled: 1
+  dw_sendy_url: https://newsletter.onlinemarketing.hu/subscribe
+  dw_sendy_api_key: P8nBHoD4dHuxM92S8o58
+  dw_sendy_logging_enabled: 1
+*/
 
 define('DW_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
